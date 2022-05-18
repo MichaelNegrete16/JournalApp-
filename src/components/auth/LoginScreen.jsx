@@ -1,9 +1,15 @@
+import { useDispatch } from 'react-redux'
 import {Link} from 'react-router-dom'
 
+// Actions importaos
+import { login } from '../../actions/auth'
+// Hooks de formulario
 import { useForm } from '../../hooks/useForm'
 
 
 const LoginScreen = () => {
+
+  const dispatch = useDispatch()
 
   // Utilizar el custom Hook para Formularios
   const [formValues, handleInputChange] = useForm({
@@ -15,6 +21,7 @@ const LoginScreen = () => {
 
   const handleLogin = e => {
       e.preventDefault()
+      dispatch(login(123,'Michael'))
   }
 
   return (
