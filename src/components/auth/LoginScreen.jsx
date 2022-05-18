@@ -1,13 +1,32 @@
 import {Link} from 'react-router-dom'
 
+import { useForm } from '../../hooks/useForm'
+
+
 const LoginScreen = () => {
+
+  // Utilizar el custom Hook para Formularios
+  const [formValues, handleInputChange] = useForm({
+    email:'correo@correo.com',
+    password: 123456
+  })
+
+  const {email,password} = formValues
+
+  const handleLogin = e => {
+      e.preventDefault()
+  }
+
   return (
     <>
       <h3 className='auth__title'>Login</h3>
-      <form>
 
-          <input className='auth__input' type="text" placeholder='Email' name='email' autoComplete='off'/>
-          <input className='auth__input' type="password" placeholder='Password' name='password' />
+      <form onSubmit={handleLogin}>
+
+          <input value={email} onChange={handleInputChange}
+                 className='auth__input' type="text" placeholder='Email' name='email' autoComplete='off'/>
+          <input value={password} onChange={handleInputChange}
+                className='auth__input' type="password" placeholder='Password' name='password' />
           <button className='btn btn-primary' type='submit' >Login</button>
 
           <div className='auth__social-networks'>
