@@ -7,6 +7,8 @@ import validator from 'validator'
 // llamados del dispatch par mostrar en redux
 import { useDispatch, useSelector } from 'react-redux'
 import { removeError, setError } from '../../actions/ui'
+import { startRegisterEmailPasswoordName } from '../../actions/auth'
+
 
 const RegisterScreen = () => {
 
@@ -30,7 +32,7 @@ const RegisterScreen = () => {
       e.preventDefault()
 
       if(isFormValid()){
-          console.log('Formulario correcto')
+          dispatch(startRegisterEmailPasswoordName(email,password,name))
       }
 
     }
@@ -43,8 +45,8 @@ const RegisterScreen = () => {
       }else if (!validator.isEmail(email)){
         dispatch(setError('Email no valido'))
         return false
-      }else if (password !== password2 || password.length < 6){
-        dispatch(setError('Password debe tener mas de 6 caracteres y deben ser iguales'))
+      }else if (password !== password2 || password.length < 5){
+        dispatch(setError('Password debe tener mas de 5 caracteres y deben ser iguales'))
         return false
       }
 
