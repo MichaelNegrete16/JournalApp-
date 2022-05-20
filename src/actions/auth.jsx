@@ -2,6 +2,9 @@ import  {firebase, googleAuthProvider } from '../firebase/firebase-config'
 import { types } from "../types/types"
 import { finishLoading, startLoading } from './ui'
 
+// Mensajes de errores entre otros
+import Swal from 'sweetalert2'
+
 
 // Acciones que vamos a hacer
 export const login = (uid,displayName) => {
@@ -35,11 +38,12 @@ export const startLoginEmailPassword = (email,password) => {
 
                 dispatch(login(user.uid, user.displayName))
                 dispatch(finishLoading())
+                Swal.fire('Succes','Ingresado con exito','success')
 
             }).catch( error => {
 
-                console.log(error)
                 dispatch(finishLoading())
+                Swal.fire('Error', 'La contraseña o el correo esta mal escrito, Intente de nuevo', 'error')
                 
             })
         
@@ -54,9 +58,10 @@ export const startRegisterEmailPasswoordName = (email,password,name) => {
 
                 await user.updateProfile({displayName: name})
                 dispatch(login(user.uid, user.displayName))
+                Swal.fire('Succes','Registrado con exito','success')
 
             }).catch( error => {
-                console.log(error)
+                Swal.fire('Error', error.message, 'error')
             })
 
     }
@@ -67,6 +72,7 @@ export const startLogout = () => {
     return async (dispatch) => {
         await firebase.auth().signOut()
         dispatch(logout)
+        Swal.fire('Succes','Logout Con exito','success')
     }
 }
 
