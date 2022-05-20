@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {Link} from 'react-router-dom'
 
 // Actions importaos
@@ -10,6 +10,7 @@ import { useForm } from '../../hooks/useForm'
 const LoginScreen = () => {
 
   const dispatch = useDispatch()
+  const {loading} = useSelector(state => state.ui)
 
   // Utilizar el custom Hook para Formularios
   const [formValues, handleInputChange] = useForm({
@@ -38,7 +39,7 @@ const LoginScreen = () => {
                  className='auth__input' type="text" placeholder='Email' name='email' autoComplete='off'/>
           <input value={password} onChange={handleInputChange}
                 className='auth__input' type="password" placeholder='Password' name='password' />
-          <button className='btn btn-primary' type='submit' >Login</button>
+          <button className='btn btn-primary' type='submit' disabled={loading} >Login</button>
 
           <div className='auth__social-networks'>
               <p>Login with social networks</p>
