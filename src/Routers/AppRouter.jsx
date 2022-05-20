@@ -13,6 +13,8 @@ import AuthRouter from "./AuthRouter";
 
 import {firebase} from "../firebase/firebase-config";
 import { login } from "../actions/auth";
+import PublicRoute from "./PublicRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const AppRouter = () => {
 
@@ -46,8 +48,8 @@ const AppRouter = () => {
       <BrowserRouter>
           <Routes>
               {/* El * al final de la ruta indica que tiene hijos para poder encadenarlos */}
-              <Route path="/auth/*" element={<AuthRouter/>}/>
-              <Route exact path="/" element={<JournalScreen/>} />
+              <Route path="/auth/*" element={<PublicRoute isAuth={isLoggedIn}> <AuthRouter/> </PublicRoute>}/>
+              <Route exact path="/" element={<PrivateRoute isAuth={isLoggedIn}> <JournalScreen/> </PrivateRoute>} />
 
               {/* Si ninguna ruta es valida caera aqui */}
               <Route path="*" element={<Navigate replace to='/auth/login'/>} />
