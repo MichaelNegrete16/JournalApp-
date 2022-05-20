@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
     BrowserRouter,
     Routes,
@@ -18,14 +18,29 @@ const AppRouter = () => {
 
     const dispatch = useDispatch()
 
+    const [checkign, setCheckign] = useState(true)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
     // Saber si ya esta autenticado o no el usuario
     useEffect(() => {
        firebase.auth().onAuthStateChanged(user => {
+
           if(user?.uid){
               dispatch(login(user.uid, user.displayName))
+              setIsLoggedIn(true)
+          }else{
+            setIsLoggedIn(false)
           }
+          
+          setCheckign(false)
       })
-    },[dispatch])
+    },[dispatch, setCheckign, setIsLoggedIn])
+
+    if(checkign){
+      return (
+        <h1>Espere.. </h1>
+      )
+    }
 
     return (
       <BrowserRouter>
@@ -35,7 +50,7 @@ const AppRouter = () => {
               <Route exact path="/" element={<JournalScreen/>} />
 
               {/* Si ninguna ruta es valida caera aqui */}
-              <Route path="*" element={<Navigate replace to='/auth'/>} />
+              <Route path="*" element={<Navigate replace to='/auth/login'/>} />
               
           </Routes>
       </BrowserRouter>
