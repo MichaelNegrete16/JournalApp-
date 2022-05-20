@@ -14,7 +14,7 @@ const LoginScreen = () => {
   // Utilizar el custom Hook para Formularios
   const [formValues, handleInputChange] = useForm({
     email:'correo@correo.com',
-    password: 123456
+    password: 1234567
   })
 
   const {email,password} = formValues

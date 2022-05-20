@@ -4,6 +4,8 @@ import { uiReducer } from '../reducers/uiReducer'
 
 
 // Creacion del store con la nueva version de redux con toolkit
+// El Combine Store ya viene por defecto en esta nueva funcion
+
 export const store = configureStore({
     reducer: {
         auth: authReducer,

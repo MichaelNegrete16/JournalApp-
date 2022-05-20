@@ -73,7 +73,7 @@ const RegisterScreen = () => {
                    className='auth__input' type="password" placeholder='Password' name='password' />
             <input value={password2} onChange={handleInputChange}
                    className='auth__input' type="password" placeholder='Confirm password' name='password2' />
-            <button className='btn btn-primary mb-5' type='submit' >Login</button>
+            <button className='btn btn-primary mb-5' type='submit' >Register</button>
 
 
             <Link className='link' to="/auth/login"> Already registered? </Link>
