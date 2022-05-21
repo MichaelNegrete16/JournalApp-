@@ -23,6 +23,7 @@ export const startGoogleLogin = () => {
         firebase.auth().signInWithPopup(googleAuthProvider)
             .then(({user}) => {
                 dispatch(login(user.uid, user.displayName))
+                Swal.fire('Succes','Ingresado con exito','success')
             })
 
     }
@@ -43,7 +44,7 @@ export const startLoginEmailPassword = (email,password) => {
             }).catch( error => {
 
                 dispatch(finishLoading())
-                Swal.fire('Error', 'La contraseña o el correo esta mal escrito, Intente de nuevo', 'error')
+                Swal.fire('Error', error.message, 'error')
                 
             })
         

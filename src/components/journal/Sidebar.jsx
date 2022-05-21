@@ -1,11 +1,14 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { startLogout } from '../../actions/auth'
 import JorunalEntries from './JorunalEntries'
 
 const Sidebar = () => {
 
   const dispatch = useDispatch()
+
+  // Seleccionar datos que estan en el state de redux
+  const {name} = useSelector(state => state.auth)
 
   const handleLogout = () => {
       dispatch(startLogout())
@@ -19,7 +22,7 @@ const Sidebar = () => {
 
             <h3 className='mt-5'>
                 <i className='far fa-moon'></i>
-                <span> Michael</span>
+                <span> {name}</span>
             </h3>
 
             <button className='btn' onClick={handleLogout}>Logout</button>

@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { authReducer } from '../reducers/authReducer'
+import { notesReducers } from '../reducers/notesReducers'
 import { uiReducer } from '../reducers/uiReducer'
 
 
@@ -9,6 +10,7 @@ import { uiReducer } from '../reducers/uiReducer'
 export const store = configureStore({
     reducer: {
         auth: authReducer,
-        ui: uiReducer
+        ui: uiReducer,
+        notes: notesReducers
     }
 })
