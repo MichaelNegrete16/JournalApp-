@@ -1,3 +1,5 @@
+import { types } from "../types/types"
+
 /*  Esto es lo que contendra este reducer
 
     {
@@ -21,7 +23,15 @@ const initialState = {
 export const notesReducers = (state = initialState, action) => {
 
     switch (action.type) {
-    
+
+        case types.notesActive:
+            return{
+                ...state,
+                active: {
+                    ...action.payload
+                }
+            }
+            
         default:
             return state
     }
