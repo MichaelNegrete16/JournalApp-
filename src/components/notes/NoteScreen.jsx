@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { useForm } from '../../hooks/useForm'
 import NotesAppBar from './NotesAppBar'
@@ -6,11 +6,21 @@ import NotesAppBar from './NotesAppBar'
 const NoteScreen = () => {
 
     const {active:note} = useSelector(state => state.notes)
-    // const initialScreen = {title: note.body, body: note.body}
 
-    const [formValues,handleInputChange] = useForm(note)
+    const [formValues,handleInputChange,reset] = useForm(note)
     const {body,title} = formValues
-    console.log(formValues)
+
+    const activeId = useRef(note.id)
+
+    useEffect(() => {
+
+        if(note.id !== activeId.current){
+          reset(note)
+          activeId.current=note.id
+        }
+
+    }, [note,reset])
+    
 
     return (
       <div className='notes__main-content'>
@@ -26,7 +36,7 @@ const NoteScreen = () => {
                   <img src="https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg" alt="ImagenTest" />
                 </div>
               }
-              
+
           </div>
 
       </div>
