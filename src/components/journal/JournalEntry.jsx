@@ -1,26 +1,33 @@
 import React from 'react'
+import moment from 'moment'
 
-const JournalEntry = () => {
-  return (
-    <div className='journal__entry pointer'>
+const JournalEntry = ({id,date,title,body,url}) => {
 
-        <div style={{
-          backgroundSize: 'cover',
-          backgroundImage: 'url(https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg)'
-        }} className='journal__entry-picture'></div>
+    const noteDate = moment(date)
 
-        <div className='journal__entry-body'>
-            <p className='journal__entry-title'>Un nuevo dia</p>
-            <p className='journal__entry-content'>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
-        </div>
+    return (
+      <div className='journal__entry pointer'>
 
-        <div className='journal__entry-date-box'>
-            <span>Monday</span>
-            <h4>28</h4>
-        </div>
+          {
+            url && 
+            <div style={{
+              backgroundSize: 'cover',
+              backgroundImage: `url(${url})`
+            }} className='journal__entry-picture'></div>
+          }
 
-    </div>
-  )
+          <div className='journal__entry-body'>
+              <p className='journal__entry-title'>{title}</p>
+              <p className='journal__entry-content'>{body}</p>
+          </div>
+
+          <div className='journal__entry-date-box'>
+              <span>{noteDate.format('dddd')}</span>
+              <h4>{noteDate.format('Do')}</h4>
+          </div>
+
+      </div>
+    )
 }
 
 export default JournalEntry
