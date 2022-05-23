@@ -15,6 +15,8 @@ import {firebase} from "../firebase/firebase-config";
 import { login } from "../actions/auth";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
+import { loadNotes } from "../helpers/loadNotes";
+import { setNotes } from "../actions/notes";
 
 const AppRouter = () => {
 
@@ -25,11 +27,13 @@ const AppRouter = () => {
 
     // Saber si ya esta autenticado o no el usuario
     useEffect(() => {
-       firebase.auth().onAuthStateChanged(user => {
+       firebase.auth().onAuthStateChanged(async user => {
 
           if(user?.uid){
               dispatch(login(user.uid, user.displayName))
               setIsLoggedIn(true)
+              const notes = await loadNotes(user.uid)
+              dispatch(setNotes(notes))
           }else{
             setIsLoggedIn(false)
           }
