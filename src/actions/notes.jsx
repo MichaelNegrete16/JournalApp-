@@ -16,6 +16,7 @@ export const startNewNote = () => {
         
         const doc = await db.collection(`${uid}/journal/notes`).add(newNote)
         dispatch(activeNotes(doc.id, newNote))
+        dispatch(addNewNotes(doc.id, newNote))
     }
 }
 
@@ -25,6 +26,15 @@ export const activeNotes = (id, note) => {
         payload: {
             id,
             ...note
+        }
+    }
+}
+
+export const addNewNotes = (id,note) => {
+    return{
+        type: types.notesAddNew,
+        payload:{
+            id, ...note
         }
     }
 }
@@ -123,3 +133,9 @@ export const deleteNote = id => {
         payload: id
     }
 }
+
+export const noteLogout = () => {
+    return{
+        type: types.notesLogoutCleaning
+    }
+} 

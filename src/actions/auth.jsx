@@ -4,6 +4,7 @@ import { finishLoading, startLoading } from './ui'
 
 // Mensajes de errores entre otros
 import Swal from 'sweetalert2'
+import { noteLogout } from './notes'
 
 
 // Acciones que vamos a hacer
@@ -72,8 +73,12 @@ export const startRegisterEmailPasswoordName = (email,password,name) => {
 export const startLogout = () => {
     return async (dispatch) => {
         await firebase.auth().signOut()
-        dispatch(logout)
+        
+        dispatch(logout())
+        dispatch(noteLogout())
+
         Swal.fire('Succes','Logout Con exito','success')
+
     }
 }
 
