@@ -40,7 +40,7 @@ const NoteScreen = () => {
               {
                 note.url &&
                 <div className='notes__image'>
-                  <img src="https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg" alt="ImagenTest" />
+                  <img src={note.url} alt="ImagenTest" />
                 </div>
               }
 
