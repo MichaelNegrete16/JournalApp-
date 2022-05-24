@@ -1,3 +1,4 @@
+import Swal from "sweetalert2"
 import { db } from "../firebase/firebase-config"
 import { loadNotes } from "../helpers/loadNotes"
 import { types } from "../types/types"
@@ -31,7 +32,6 @@ export const startLoadingNotes = uid => {
     return async (dispatch) => {
         const notes = await loadNotes(uid)
         dispatch(setNotes(notes))
-        
     }
 }
 
@@ -45,7 +45,7 @@ export const setNotes = notes => {
 export const startSaveNotes = note => {
     return async(dispatch, getState) => {
         const {uid} = getState().auth
-        
+
         // si la url de una imagen no se manda se elimina
         if(!note.url){
             delete note.url
@@ -56,6 +56,25 @@ export const startSaveNotes = note => {
         delete noteToFirestore.id
 
         // Actualizar las notas
-        await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFirestore)
+        try {
+            await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFirestore)
+            dispatch(refreshNote(note.id, note))
+            Swal.fire('Nota Actualizada',note.title,'success')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export const refreshNote = (id, note) => {
+    return {
+        type: types.notesUpdate,
+        payload: {
+            id,
+            note: {
+                id,
+                ...note
+            }
+        }
     }
 }
