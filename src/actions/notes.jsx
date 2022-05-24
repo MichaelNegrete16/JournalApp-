@@ -41,3 +41,21 @@ export const setNotes = notes => {
         payload: notes
     }
 }
+
+export const startSaveNotes = note => {
+    return async(dispatch, getState) => {
+        const {uid} = getState().auth
+        
+        // si la url de una imagen no se manda se elimina
+        if(!note.url){
+            delete note.url
+        }
+
+        // creo un variable para guardar las notas y eliminar el id para que no se guarde
+        const noteToFirestore = {...note}
+        delete noteToFirestore.id
+
+        // Actualizar las notas
+        await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFirestore)
+    }
+}
